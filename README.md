@@ -1,6 +1,6 @@
 # 🚀 Driver USB Simulator - Raspberry Pi Pico (TPSE II)
 
-Este projeto consiste no desenvolvimento de um Driver de Dispositivo de Caractere (LKM - Linux Kernel Module) que simula o comportamento de hardware de uma Raspberry Pi Pico integrada ao Kernel do Linux. O projeto foi desenvolvido para a disciplina de Tópicos Práticos em Sistemas Embarcados II (UFC).
+Este projeto consiste no desenvolvimento de um Driver de Dispositivo de Caractere (LKM - Linux Kernel Module) que simula o comportamento de hardware de uma Raspberry Pi Pico integrada ao Kernel do Linux. 
 
 <img width="521" height="196" alt="ccc" src="https://github.com/user-attachments/assets/3e9bea6c-5f7a-4cf7-91aa-913ac171ad7d" />
 
