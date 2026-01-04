@@ -4,30 +4,46 @@
 #include <unistd.h>
 #include <string.h>
 
+#define DEVICE "/dev/pico_usb0"
+
 int main() {
     int fd;
-    char rx_buffer[256];
-    char tx_buffer[] = "Mensagem do Pedro para o Pico";
+    char buffer[256];
 
-    // Abre o arquivo de dispositivo que você criou com o mknod
-    fd = open("/dev/pico_usb0", O_RDWR);
-    if (fd < 0) {
-        perror("Erro ao abrir o driver! Verifique se o /dev/pico_usb0 existe");
-        return -1;
+    printf("--- Executando Aplicação de Usuário ---\n");
+    printf("Enviando dados: Mensagem do Pedro para o Pico\n");
+
+    // Loop de 10 leituras (de 0 a 10)
+    for(int i = 0; i <= 10; i++) {
+        fd = open(DEVICE, O_RDWR);
+        if(fd < 0) {
+            printf("\nErro ao abrir o dispositivo! Verifique se o driver está carregado.\n");
+            return -1;
+        }
+
+        // Escreve para o Driver
+        write(fd, "Mensagem do Pedro", 17);
+
+        // Limpa e lê do driver
+        memset(buffer, 0, sizeof(buffer));
+        read(fd, buffer, sizeof(buffer));
+
+        // Remove o '\n' da resposta para manter o printf na mesma linha adequadamente
+        buffer[strcspn(buffer, "\n")] = 0;
+
+        // Imprime o contador atualizado sobrescrevendo a linha (\r)
+        printf("\rLendo resposta do Pico... Resposta: %s", buffer);
+        fflush(stdout);
+
+        close(fd);
+
+        /* * Ajuste Crucial: Esperamos 1.05 segundos. 
+         * Isso dá tempo para o Timer do Kernel (que roda a cada 1s) 
+         * incrementar o valor antes da nossa próxima leitura.
+         */
+        usleep(1050000); 
     }
 
-    // 1. Envia dados (aciona o dev_write no driver)
-    printf("Enviando dados: %s\n", tx_buffer);
-    write(fd, tx_buffer, strlen(tx_buffer));
-
-    // 2. Recebe dados (aciona o dev_read no driver)
-    printf("Lendo resposta do Pico...\n");
-    if (read(fd, rx_buffer, sizeof(rx_buffer)) < 0) {
-        perror("Erro na leitura");
-    } else {
-        printf("Resposta do Driver: %s\n", rx_buffer);
-    }
-
-    close(fd);
+    printf("\n--- Ciclo de leitura da aplicação finalizado ---\n");
     return 0;
 }
