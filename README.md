@@ -2,6 +2,9 @@
 
 Este projeto consiste no desenvolvimento de um Driver de Dispositivo de Caractere (LKM - Linux Kernel Module) que simula o comportamento de hardware de uma Raspberry Pi Pico integrada ao Kernel do Linux. O projeto foi desenvolvido para a disciplina de Tópicos Práticos em Sistemas Embarcados II (UFC).
 
+<img width="521" height="196" alt="ccc" src="https://github.com/user-attachments/assets/3e9bea6c-5f7a-4cf7-91aa-913ac171ad7d" />
+
+
 ## 📋 Sobre o Projeto
 
 O sistema simula a comunicação Host-Hardware através de um arquivo de dispositivo localizado em `/dev/pico_usb0`. O driver utiliza interrupções de software (Kernel Timers) para manter um contador persistente que representa o clock interno do hardware simulado.
@@ -43,6 +46,9 @@ O arquivo start.sh gerencia automaticamente a limpeza, compilação, carregament
 chmod +x start.sh
 ./start.sh
 ```
+
+<img width="231" height="132" alt="dddd" src="https://github.com/user-attachments/assets/c60a3aa3-b737-45f6-9909-8390d93cabad" />
+
 
 ## 🖥️ Fluxo de Demonstração
 
